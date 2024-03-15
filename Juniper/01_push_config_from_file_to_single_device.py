@@ -1,7 +1,7 @@
 ##############################################################
 ##      - Python script for applying Juniper config         ##
 ##      - Author: Joshua Bergman                            ##
-##      - Version: 0.2 (Draft)                              ##
+##      - Version: 0.1 (Draft)                              ##
 ##      - Date: 15-03-2024                                  ##
 ##############################################################
 
