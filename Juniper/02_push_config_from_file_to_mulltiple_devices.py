@@ -45,17 +45,17 @@ with open(ip_address_file, 'r') as ip_file:
             'port': port,
             }
 
-            # Create SSH session
+            ## Create SSH session
             net_connect = ConnectHandler(**juniper)
 
-            # Send config to switch
+            ## Send config to switch
             net_connect.config_mode()
             net_connect.send_config_from_file(configuration_file_input)
 
-            # Commit changes
+            ## Commit changes
             net_connect.commit()
 
-            # Disconnect SSH session
+            ## Disconnect SSH session
             net_connect.disconnect()
 
             print("Config pushed to:", line)
@@ -64,16 +64,16 @@ with open(ip_address_file, 'r') as ip_file:
         except netmiko.ssh_exception.NetMikoTimeoutException:
             print("SSH connection timed out to: ", line)
             output_file.write("SSH connection timed out to: " + line + "\n")
-            continue  # Continue to the next IP address
+            continue  ## Continue to the next IP address
 
         except netmiko.ssh_exception.NetMikoAuthenticationException:
             print("SSH authentication failed for:", line)
             output_file.write("SSH authentication failed for: " + line + "\n")
-            continue  # Continue to the next IP address
+            continue  ## Continue to the next IP address
 
         except Exception as e:
             print("An error occurred for: ", line, e)
             output_file.write("An error occurred for: " + line + "\n")
-            continue  # Continue to the next IP address
+            continue  ## Continue to the next IP address
 
         sleep(0.2)
