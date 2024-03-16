@@ -12,7 +12,7 @@ device_type = 'fortinet'
 port = '22'
 key_length = 32
 
-#Specify connection details
+## Specify connection details
 remote_fortigate = {
     'device_type': device_type,
     'host': remote_ip_address,
@@ -29,14 +29,14 @@ local_fortigate = {
     'port': port,
 }
 
-#Generate PSK
+## Generate PSK
 def generate_key(length):
     return ''.join(random.choice(string.ascii_letters + string.digits) for _ in
     range(length))
 
 VPN_PSK = generate_key(key_length)
 
-#Generate command set
+## Generate command set
 REMOTE_COMMANDS = ['config vpn ipsec phase1-interface',
                       'edit "<VPN NAME>"',
                       'set psk ' + VPN_PSK]
@@ -45,15 +45,15 @@ LOCAL_COMMANDS = ['config vpn ipsec phase1-interface',
                      'edit "<VPN NAME>"',
                      'set psk ' + VPN_PSK]
 
-#Start SSH connection (remote, local)
+## Start SSH connection (remote, local)
 SSH_REMOTE_FORTIGATE = ConnectHandler(**remote_fortigate)
 SSH_LOCAL_FORTIGATE = ConnectHandler(**local_fortigate)
 
-#Send SSH commands (remote, local)
+## Send SSH commands (remote, local)
 SSH_REMOTE_FORTIGATE.send_config_set(REMOTE_COMMANDS)
 time.sleep(5)
 SSH_LOCAL_FORTIGATE.send_config_set(LOCAL_COMMANDS)
 
-#Stop SSH connection (remote, local)
+## Stop SSH connection (remote, local)
 SSH_REMOTE_FORTIGATE.disconnect()
 SSH_LOCAL_FORTIGATE.disconnect()
