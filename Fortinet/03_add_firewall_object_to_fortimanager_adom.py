@@ -8,14 +8,13 @@
 import pyFortiManagerAPI
 import getpass
 import sys
-import subprocess
 
 ## Define variables
 username = input("Username: ")
 password = getpass.getpass(prompt="Password: ", stream=None)
-host = "FortiManager IP"
+host = input("FortiManager IP: ")
 objectname = input("Object name: ")
-associated_interface = "Interface (type any for default): "
+associated_interface = input("Interface (type any for default): ")
 subnet = input("IP address / netmask: ")
 
 ## Assemble FortiManager connection details
@@ -39,18 +38,17 @@ def get_policy_package_from_fortimanager():
 
 ## List available adoms
 available_adoms = get_adoms_from_fortimanager
-
 if not available_adoms:
     print("No ADOM available")
     sys.exit()
 
+## Create question with aquired ADOM's
 question_adom = {
     'type': 'list',
     'name': 'ADOM',
     'message': 'Please select ADOM',
     'ADOM': available_adoms
 }
-
 answer_adom = input(question_adom)
 
 ## List available policy packages
@@ -59,13 +57,14 @@ if not available_policy_packages:
     print("No Policy Package available")
     sys.exit()
 
+
+## Create question with aquired policy packages
 question_adom = {
     'type': 'list',
     'name': 'Policy Package',
     'message': 'Please select Policy Package',
     'Policy_Package': available_policy_packages
 }
-
 answer_adom = input(question_adom)
 
 ## Create address object
