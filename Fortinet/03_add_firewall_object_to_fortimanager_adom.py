@@ -83,7 +83,6 @@ if not available_policy_packages:
     print("No Policy Package available")
     sys.exit()
 
-
 ## Create question with aquired policy packages
 question_adom = {
     'type': 'list',
