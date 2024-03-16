@@ -8,6 +8,7 @@
 import pyFortiManagerAPI
 import getpass
 import sys
+from PyInquirer import prompt
 
 ## Define variables
 username = input("Username: ")
@@ -49,7 +50,7 @@ question_adom = {
     'message': 'Please select ADOM',
     'ADOM': available_adoms
 }
-answer_adom = input(question_adom)
+answer_adom = prompt(question_adom)
 
 ## List available policy packages
 available_policy_packages = get_policy_package_from_fortimanager()
@@ -65,7 +66,7 @@ question_adom = {
     'message': 'Please select Policy Package',
     'Policy_Package': available_policy_packages
 }
-answer_adom = input(question_adom)
+answer_adom = prompt(question_adom)
 
 ## Create address object
 FortiManager.add_firewall_address_object(
