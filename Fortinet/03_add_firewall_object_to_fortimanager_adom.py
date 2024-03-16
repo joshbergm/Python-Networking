@@ -37,7 +37,7 @@ def get_policy_package_from_fortimanager():
     return policy_package_list
 
 ## List available adoms
-available_adoms = get_adoms_from_fortimanager
+available_adoms = get_adoms_from_fortimanager()
 if not available_adoms:
     print("No ADOM available")
     sys.exit()
@@ -52,7 +52,7 @@ question_adom = {
 answer_adom = input(question_adom)
 
 ## List available policy packages
-available_policy_packages = get_policy_package_from_fortimanager
+available_policy_packages = get_policy_package_from_fortimanager()
 if not available_policy_packages:
     print("No Policy Package available")
     sys.exit()
