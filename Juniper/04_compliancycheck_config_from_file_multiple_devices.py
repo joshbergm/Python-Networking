@@ -14,7 +14,7 @@ from netmiko import ConnectHandler
 
 ## Function to retrieve switch configuration
 def get_switch_config(net_connect):
-    output = net_connect.send_command("show configuration")
+    output = net_connect.send_command("show")
     return output
 
 ## SSH session successful?
