@@ -1,3 +1,10 @@
+##############################################################
+##      - Python script for rekeying IPSec VPN's            ##
+##      - Author: Joshua Bergman                            ##
+##      - Version: 0.1 (Draft)                              ##
+##      - Date: 16-03-2024                                  ##
+##############################################################
+
 from netmiko import ConnectHandler
 import random
 import string
