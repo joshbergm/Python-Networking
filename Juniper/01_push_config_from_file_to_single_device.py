@@ -59,21 +59,20 @@ if os.stat(config_file_path).st_size == 0:
 net_connect.config_mode()
 net_connect.send_config_from_file(config_file_path)
 
-## Ask to view changes
-net_connect.exit_config_mode()
+## Ask to view changes after deployement
 compare_question = None
 while compare_question not in ("y", "n"):
     compare_question = input("View changes y/n? ")
     if compare_question == "y":
-        compare_output = net_connect.send_command('show | compare')
-        print(compare_output)
+        net_connect.config_mode()
+        compare_output = net_connect.send_command_timing("show | compare")
+        print(compare_output, '\n')
     elif compare_question == "n":
         continue
     else:
         print("View changes y/n? ")
 
 ## Ask user to commit changes
-net_connect.exit_config_mode()
 commit_question = None
 while commit_question not in ("y", "n"):
     commit_question = input("Commit changes y/n? ")

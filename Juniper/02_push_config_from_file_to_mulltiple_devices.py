@@ -27,7 +27,6 @@ config_file_path = os.path.join("c:/Users/", pc_username, "Documents/PythonJunip
 ## Define file names
 configuration_file_input = os.path.join(config_file_path, "config.txt")
 ip_address_file = os.path.join(config_file_path, "iplist.txt")
-output_file = os.path.join(config_file_path), "output.txt"
 
 with open(ip_address_file, 'r') as ip_file:
     ## Loop through each line in the IP address file
@@ -59,21 +58,9 @@ with open(ip_address_file, 'r') as ip_file:
             net_connect.disconnect()
 
             print("Config pushed to:", line)
-            output_file.write("Config pushed to: " + line + "\n")
-
-        except netmiko.ssh_exception.NetMikoTimeoutException:
-            print("SSH connection timed out to: ", line)
-            output_file.write("SSH connection timed out to: " + line + "\n")
-            continue  ## Continue to the next IP address
-
-        except netmiko.ssh_exception.NetMikoAuthenticationException:
-            print("SSH authentication failed for:", line)
-            output_file.write("SSH authentication failed for: " + line + "\n")
-            continue  ## Continue to the next IP address
+            output_file("Config pushed to: " + line + "\n")
 
         except Exception as e:
             print("An error occurred for: ", line, e)
             output_file.write("An error occurred for: " + line + "\n")
             continue  ## Continue to the next IP address
-
-        sleep(0.2)
