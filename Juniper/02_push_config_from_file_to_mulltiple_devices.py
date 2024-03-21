@@ -58,9 +58,7 @@ with open(ip_address_file, 'r') as ip_file:
             net_connect.disconnect()
 
             print("Config pushed to:", line)
-            output_file("Config pushed to: " + line + "\n")
 
         except Exception as e:
             print("An error occurred for: ", line, e)
-            output_file.write("An error occurred for: " + line + "\n")
             continue  ## Continue to the next IP address
