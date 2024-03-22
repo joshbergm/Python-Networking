@@ -66,6 +66,6 @@ with open(ip_address_list_input, 'r') as ip_address_list:
         if backup_file_response.ok:
             with open(config_backup_output + f'{hostname}_backup_{date}.conf', 'wb') as f:
                 f.write(backup_file_response.content)
-            print("Config file saved succesfully as:" + config_backup_output + f"{hostname}_backup_{date}.conf")
+            print("Config file saved succesfully as: " + config_backup_output + f"{hostname}_backup_{date}.conf")
         else:
-            print("Failed to retrieve config file, Status code:", backup_file_response.status_code)
+            print("Failed to retrieve config file, Status code: ", backup_file_response.status_code)
