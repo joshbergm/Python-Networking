@@ -78,8 +78,8 @@ with open(ip_address_list_input, 'r') as ip_address_list:
         config_backup_output = os.path.join(file_path, "Backups/"+hostname)
 
         ## Create folder with hostname if not exists
-        if not os.path.exists("/volume1/Back-up/FortiGate/Backups/"+hostname):
-            os.makedirs("/volume1/Back-up/FortiGate/Backups/"+hostname)
+        if not os.path.exists(config_backup_output):
+            os.makedirs(config_backup_output)
 
         ## Write backup content to file
         if backup_file_response.ok:
