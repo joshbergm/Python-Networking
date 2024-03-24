@@ -25,9 +25,8 @@ date = datetime.now().strftime('%d_%m_%Y')
 ## Set default path for file handling
 file_path = os.path.join("c:/Users/", pc_username, "Documents/Python-Networking/")
 
-## Define file names
+## Define source file
 ip_address_list_input = os.path.join(file_path, "iplist.csv")
-config_backup_output = os.path.join(file_path, "Backups/")
 
 ## Loop trough IP's
 with open(ip_address_list_input, 'r') as ip_address_list:
@@ -61,6 +60,13 @@ with open(ip_address_list_input, 'r') as ip_address_list:
         if hostname_response.ok:
             hostname_data = hostname_response.json()
             hostname = hostname_data.get("results", {}).get("hostname")
+
+        ## Define backup path
+        config_backup_output = os.path.join(file_path, "Backups/"+hostname)
+
+        ## Create folder with hostname if not exists
+        if not os.path.exists("/volume1/Back-up/FortiGate/Backups/"+hostname):
+            os.makedirs("/volume1/Back-up/FortiGate/Backups/"+hostname)
 
         ## Write backup content to file
         if backup_file_response.ok:
