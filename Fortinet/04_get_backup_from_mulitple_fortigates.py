@@ -8,13 +8,14 @@
 ## Import libraries
 from fortigate_api import FortiGateAPI ## FortiGate API
 import getpass ## Ability to get token without displaying chars in the terminal
-from datetime import datetime ## Get current time
+from datetime import datetime, timedelta ## Get current time
 import os ## Needed for getting files
 import requests ## Needed for sending API's
 import csv ## Needed for CSV file handling
 
 ## Define variables
 vdom = 'root'
+delete_days = 90
 
 ## Get username for file handling
 pc_username = getpass.getuser()
@@ -27,6 +28,18 @@ file_path = os.path.join("c:/Users/", pc_username, "Documents/Python-Networking/
 
 ## Define source file
 ip_address_list_input = os.path.join(file_path, "iplist.csv")
+
+## Function to delete files older than x days
+def delete_backup_files_older_than_x_days():
+    current_time = datetime.now()
+    delta = timedelta(days=delete_days)
+
+    ## Loop trough files and check if there are any older than x days
+    for files in os.walk(file_path,"Backups/"+hostname):
+        for backup in files:
+            file_creation_date = datetime.fromtimestamp(os.path.getctime(file_path,"Backups/",hostname))
+            if current_time - file_creation_date > delta:
+                os.remove(file_path,"Backups",hostname)
 
 ## Loop trough IP's
 with open(ip_address_list_input, 'r') as ip_address_list:
@@ -75,3 +88,6 @@ with open(ip_address_list_input, 'r') as ip_address_list:
             print("Config file saved succesfully as: " + config_backup_output + f"{hostname}_backup_{date}.conf")
         else:
             print("Failed to retrieve config file, Status code: ", backup_file_response.status_code)
+
+        ## Delete files older than specified
+        delete_backup_files_older_than_x_days(config_backup_output)
