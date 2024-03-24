@@ -13,7 +13,7 @@ import os ## Needed for getting files
 import requests ## Needed for sending API's
 import csv ## Needed for CSV file handling
 
-## Define login variables
+## Define variables
 vdom = 'root'
 
 ## Get username for file handling
