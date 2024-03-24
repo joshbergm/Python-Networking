@@ -24,10 +24,10 @@ pc_username = getpass.getuser()
 date = datetime.now().strftime('%d_%m_%Y')
 
 ## Set default path for file handling
-file_path = os.path.join("c:/Users/", pc_username, "Documents/Python-Networking/")
+file_path = os.path.join("/volume1/Back-up/FortiGate/")
 
 ## Define source file
-ip_address_list_input = os.path.join(file_path, "iplist.csv")
+ip_address_list_input = os.path.join(file_path, "config/iplist.csv")
 
 ## Function to delete files older than x days
 def delete_backup_files_older_than_x_days():
@@ -37,7 +37,7 @@ def delete_backup_files_older_than_x_days():
     ## Loop trough files and check if there are any older than x days
     for files in os.walk(file_path,"Backups/"+hostname):
         for backup in files:
-            file_creation_date = datetime.fromtimestamp(os.path.getctime(file_path,"Backups/",hostname))
+            file_creation_date = datetime.fromtimestamp(os.path.getctime(config_backup_output))
             if current_time - file_creation_date > delta:
                 os.remove(file_path,"Backups",hostname)
 
@@ -75,7 +75,7 @@ with open(ip_address_list_input, 'r') as ip_address_list:
             hostname = hostname_data.get("results", {}).get("hostname")
 
         ## Define backup path
-        config_backup_output = os.path.join(file_path, "Backups/"+hostname)
+        config_backup_output = os.path.join(file_path, "Backups/"+hostname+"/")
 
         ## Create folder with hostname if not exists
         if not os.path.exists(config_backup_output):
@@ -90,4 +90,4 @@ with open(ip_address_list_input, 'r') as ip_address_list:
             print("Failed to retrieve config file, Status code: ", backup_file_response.status_code)
 
         ## Delete files older than specified
-        delete_backup_files_older_than_x_days(config_backup_output)
+        delete_backup_files_older_than_x_days()
